@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Site Checker</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Baloo+Bhaijaan|Open+Sans" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
+  <link href="css/site.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="app-container">
+
+    <div class="app-main-div">
+      <div class="app-title">
+        monitor
+      </div>
+
+      <form method="post" action="/" onsubmit="return false" name="inputForm" id="inputForm">
+
+        <input name="userInput" id="userInput" class="app-text-input" size="32" required autofocus />
+
+        <button class="app-monitor-button">
+          <i class="fa fa-search"></i>
+        </button>
+      </form>
+
+      <a href="./" id="stopMonitoring">
+        <button class="app-stop-monitoring-button">
+          Back
+        </button>
+      </a>
+    </div>
+
+
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+  <script src="socket.io/socket.io.js"></script>
+  <script type="text/javascript">
+    $(function () {
+
+      var socket = io.connect('http://localhost:3001');
+
+      socket.on('connect', function () {
+        console.log("socket.io connected on client");
+      });
+
+      socket.on('site change', function (data) {
+        console.log("page changed!");
+        window.open(data.url);
+      });
+
+
+      $('#userInput').on('click', function (evt) {
+        this.setSelectionRange(0, this.value.length);
+      });
+
+
+      $('#inputForm').on('submit', function (evt) {
+
+        //evt.preventDefault();
+
+        $.ajax({
+            url: "./monitor",
+            method: "POST",
+            data: {
+              userInput: $('#userInput').val()
+            },
+            dataType: "json"
+          })
+          .then(function (res) {
+
+            $('#stopMonitoring').css("opacity", "1");
+
+            $('#inputForm')
+              .html("<div class='app-response-text'>" +
+                "You are currently monitoring<br/><strong>" +
+                res.toString() + "</strong></div>");
+          });
+      });
+
+
+
+      $(window).on("beforeunload", function () {
+        $.ajax({
+          url: "./stop",
+          method: "GET",
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

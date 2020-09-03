@@ -1,0 +1,92 @@
+body{
+  margin:0;
+  color: #5D4037;
+  background-color: #FFF9C4;
+  font-family: 'Open Sans', sans-serif;
+}
+
+
+
+.app-container{
+  display:flex;
+  align-items:center;
+  align-content:center;
+  justify-content:center;
+  flex-direction:column;
+  text-align:center;
+  height:70vh;
+}
+
+.app-main-div{
+}
+
+.app-title{
+  font-size:4rem;
+  user-select:none;
+  cursor:default;
+  font-family: 'Baloo Bhaijaan', cursive;
+  margin-bottom:1rem;
+}
+
+.app-text-input, .app-monitor-button{
+  font-size:1rem;
+  padding: 14px 18px;
+  outline:none;
+  margin: 0 0.125rem;
+  -webkit-transition: 0.15s all ease-out;
+  -webkit-box-shadow: 0px 2px 3px 0px rgba(127,127,127,1);
+}
+
+.app-text-input{
+  background:rgba(255,255,255,1);
+  color: #3E2723;
+  border:none;
+
+
+  &:focus,&:hover{
+    -webkit-box-shadow: 0px 2px 6px 0px rgba(79,79,79,1);
+  }
+}
+
+.app-monitor-button{
+  border: solid #5D4037 1px;
+  color: #F9FBE7;
+  background: #6D4C41;
+  border-bottom-right-radius: 30%;
+  border-top-right-radius: 30%;
+
+  &:hover{
+    cursor:pointer;
+    color:#FFFFFF;
+    background: #5D4037;
+  }
+
+  &:active{
+    background:
+            linear-gradient(
+                            #6D4C41 0%,
+                            #5D4037 100%);
+    transition:none;
+  }
+
+  &:focus{
+    transition:none;
+  }
+}
+
+#stopMonitoring{
+  opacity:0;
+}
+
+.app-stop-monitoring-button{
+  margin-top:4rem;
+}
+
+.app-response-text{
+  padding: 2px 18px;
+  font-size:1rem;
+}
+
+.app-instructions{
+
+}
